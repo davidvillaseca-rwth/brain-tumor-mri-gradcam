@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" width="1200" height="470" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52514e"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#eb6834"/>
+    </marker>
+    <radialGradient id="heat" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e34948"/>
+      <stop offset="45%" stop-color="#eda100"/>
+      <stop offset="75%" stop-color="#1baf7a" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#2a78d6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="470" rx="16" fill="#fcfcfb"/>
+  <text x="40" y="50" font-size="24" font-weight="700" fill="#0b0b0b">Brain tumor MRI classifier: pipeline</text>
+  <text x="40" y="76" font-size="14" fill="#52514e">Transfer learning with ResNet50, explained with Grad-CAM, tested on scans the model never saw</text>
+
+  <!-- Stage boxes: x = 40, 270, 500, 730, 960 ; width 200 -->
+  <g font-size="13" fill="#52514e">
+    <!-- 1 Data -->
+    <rect x="40" y="110" width="200" height="200" rx="12" fill="#ffffff" stroke="#d6d5d0" stroke-width="1.5"/>
+    <circle cx="68" cy="138" r="14" fill="#2a78d6"/><text x="68" y="143" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">1</text>
+    <text x="92" y="143" font-size="16" font-weight="700" fill="#0b0b0b">Dataset</text>
+    <g transform="translate(62,160)">
+      <rect width="34" height="34" rx="6" fill="#2b2b2b"/><ellipse cx="17" cy="17" rx="11" ry="13" fill="#8a8a8a"/>
+      <rect x="40" width="34" height="34" rx="6" fill="#2b2b2b"/><ellipse cx="57" cy="17" rx="12" ry="11" fill="#8a8a8a"/>
+      <rect x="80" width="34" height="34" rx="6" fill="#2b2b2b"/><ellipse cx="97" cy="17" rx="11" ry="13" fill="#8a8a8a"/><circle cx="101" cy="12" r="4" fill="#d8d8d8"/>
+      <rect x="120" width="34" height="34" rx="6" fill="#2b2b2b"/><ellipse cx="137" cy="17" rx="12" ry="12" fill="#8a8a8a"/>
+    </g>
+    <text x="56" y="224">Kaggle brain tumor MRI</text>
+    <text x="56" y="244">7,200 2-D slices</text>
+    <text x="56" y="264">glioma · meningioma</text>
+    <text x="56" y="284">pituitary · no tumor</text>
+
+    <!-- 2 Split + augment -->
+    <rect x="270" y="110" width="200" height="200" rx="12" fill="#ffffff" stroke="#d6d5d0" stroke-width="1.5"/>
+    <circle cx="298" cy="138" r="14" fill="#2a78d6"/><text x="298" y="143" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">2</text>
+    <text x="322" y="143" font-size="16" font-weight="700" fill="#0b0b0b">Split + augment</text>
+    <g transform="translate(286,162)">
+      <rect width="168" height="16" rx="4" fill="#cde2fb"/>
+      <rect width="120" height="16" rx="4" fill="#2a78d6"/>
+      <rect x="122" width="22" height="16" fill="#86b6ef"/>
+      <rect x="146" width="22" height="16" rx="4" fill="#eda100"/>
+    </g>
+    <text x="286" y="200" font-size="11">train 4,760 · val 840 · test 1,600</text>
+    <text x="286" y="226">Test folder held out</text>
+    <text x="286" y="246">Random crop, flip, rotate</text>
+    <text x="286" y="266">Blur, contrast, low-res</text>
+    <text x="286" y="286">224 × 224, ImageNet norm</text>
+
+    <!-- 3 ResNet50 -->
+    <rect x="500" y="110" width="200" height="200" rx="12" fill="#ffffff" stroke="#d6d5d0" stroke-width="1.5"/>
+    <circle cx="528" cy="138" r="14" fill="#2a78d6"/><text x="528" y="143" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">3</text>
+    <text x="552" y="143" font-size="16" font-weight="700" fill="#0b0b0b">Fine-tune ResNet50</text>
+    <g transform="translate(518,160)" stroke="#9ec5f4" stroke-width="1.5">
+      <line x1="10" y1="8" x2="60" y2="18"/><line x1="10" y1="8" x2="60" y2="34"/>
+      <line x1="10" y1="28" x2="60" y2="18"/><line x1="10" y1="28" x2="60" y2="34"/>
+      <line x1="10" y1="48" x2="60" y2="18"/><line x1="10" y1="48" x2="60" y2="34"/>
+      <line x1="60" y1="18" x2="120" y2="12"/><line x1="60" y1="18" x2="120" y2="26"/><line x1="60" y1="18" x2="120" y2="40"/>
+      <line x1="60" y1="34" x2="120" y2="12"/><line x1="60" y1="34" x2="120" y2="26"/><line x1="60" y1="34" x2="120" y2="40"/>
+      <g stroke="none" fill="#86b6ef"><circle cx="10" cy="8" r="5"/><circle cx="10" cy="28" r="5"/><circle cx="10" cy="48" r="5"/><circle cx="60" cy="18" r="5"/><circle cx="60" cy="34" r="5"/></g>
+      <g stroke="none" fill="#2a78d6"><circle cx="120" cy="12" r="5"/><circle cx="120" cy="26" r="5"/><circle cx="120" cy="40" r="5"/><circle cx="150" cy="26" r="0"/></g>
+      <text x="132" y="30" stroke="none" fill="#2a78d6" font-size="11" font-weight="700">4</text>
+    </g>
+    <text x="516" y="236">ImageNet weights</text>
+    <text x="516" y="256">New 4-class head</text>
+    <text x="516" y="276">AdamW · AMP · 10 epochs</text>
+    <text x="516" y="296" font-size="11">best epoch chosen on val</text>
+
+    <!-- 4 Grad-CAM -->
+    <rect x="730" y="110" width="200" height="200" rx="12" fill="#ffffff" stroke="#d6d5d0" stroke-width="1.5"/>
+    <circle cx="758" cy="138" r="14" fill="#2a78d6"/><text x="758" y="143" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">4</text>
+    <text x="782" y="143" font-size="16" font-weight="700" fill="#0b0b0b">Grad-CAM</text>
+    <g transform="translate(800,158)">
+      <rect x="-14" y="-2" width="88" height="62" rx="6" fill="#2b2b2b"/>
+      <ellipse cx="30" cy="29" rx="26" ry="27" fill="#7d7d7d"/>
+      <ellipse cx="38" cy="22" rx="18" ry="16" fill="url(#heat)"/>
+    </g>
+    <text x="746" y="246">Heatmap from layer4</text>
+    <text x="746" y="266">gradients × activations</text>
+    <text x="746" y="286">shows where it looks</text>
+
+    <!-- 5 Evaluate -->
+    <rect x="960" y="110" width="200" height="200" rx="12" fill="#ffffff" stroke="#d6d5d0" stroke-width="1.5"/>
+    <circle cx="988" cy="138" r="14" fill="#2a78d6"/><text x="988" y="143" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">5</text>
+    <text x="1012" y="143" font-size="16" font-weight="700" fill="#0b0b0b">Unseen scans</text>
+    <g transform="translate(1000,160)">
+      <rect width="28" height="28" fill="#2a78d6"/><rect x="30" width="28" height="28" fill="#e9f1fc"/><rect x="60" width="28" height="28" fill="#e9f1fc"/><rect x="90" width="28" height="28" fill="#e9f1fc"/>
+      <rect y="30" width="28" height="28" fill="#e9f1fc"/><rect x="30" y="30" width="28" height="28" fill="#2a78d6"/><rect x="60" y="30" width="28" height="28" fill="#e9f1fc"/><rect x="90" y="30" width="28" height="28" fill="#e9f1fc"/>
+    </g>
+    <text x="976" y="246">Accuracy 98.0%</text>
+    <text x="976" y="266">Confusion matrix</text>
+    <text x="976" y="286">Recall per tumor type</text>
+  </g>
+
+  <!-- Forward arrows -->
+  <g stroke="#52514e" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <line x1="242" y1="210" x2="266" y2="210"/>
+    <line x1="472" y1="210" x2="496" y2="210"/>
+    <line x1="702" y1="210" x2="726" y2="210"/>
+    <line x1="932" y1="210" x2="956" y2="210"/>
+  </g>
+
+  <!-- Shortcut-fix feedback loop -->
+  <path d="M1060,312 L1060,372 L370,372 L370,316" stroke="#eb6834" stroke-width="2.5" fill="none" stroke-dasharray="7 5" marker-end="url(#arrowBlue)"/>
+  <rect x="430" y="352" width="570" height="96" rx="12" fill="#fff4ee" stroke="#eb6834" stroke-width="1.5"/>
+  <text x="452" y="380" font-size="15" font-weight="700" fill="#0b0b0b">Shortcut fix, found by reading the mistakes</text>
+  <text x="452" y="404" font-size="13" fill="#52514e">All training gliomas come from one source (512 × 512); "no tumor" scans mostly don't.</text>
+  <text x="452" y="424" font-size="13" fill="#52514e">Gliomas from another source: <tspan font-weight="700" fill="#0b0b0b">18% recall</tspan>. Stronger augmentation + 38 borrowed</text>
+  <text x="452" y="442" font-size="13" fill="#52514e">examples raise the held-out other-source glioma recall to <tspan font-weight="700" fill="#0b0b0b">76%</tspan>.</text>
+</svg>

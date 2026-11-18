@@ -1,0 +1,11 @@
+# dataset (download with download_data.py) and trained weights (see GitHub Releases)
+data/
+models/
+*.pt
+
+# local outputs
+train*_log.txt
+gradcam_grid.png
+gradcam_custom.png
+__pycache__/
+.claude/
