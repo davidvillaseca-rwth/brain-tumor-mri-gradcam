@@ -145,7 +145,7 @@ The model had still never seen a glioma from another source, and augmentation ca
 
 Other-source glioma recall rose to 76.3%, and gliomas missed as "no tumor" on the shared test set fell from 20 to 4.
 
-There's a trade-off. The model now says "glioma" a little more easily: 9 meningiomas are predicted as glioma, and meningioma recall dropped from 98.3% to 96.8%. Mixing up two tumor types is a much smaller problem than missing a tumor, so I kept it.
+There's a trade-off. The model now says "glioma" a little more easily: 9 meningiomas are predicted as glioma, and meningioma recall dropped to 96.8%, from 98.3% for the strong-aug model and 98.8% for the original. No meningiomas were borrowed, so all three are measured on the same 400 scans. Mixing up two tumor types is a much smaller problem than missing a tumor, so I kept it.
 
 ## 5. Results
 
