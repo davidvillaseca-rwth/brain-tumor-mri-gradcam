@@ -2,7 +2,7 @@
 
 This is a ResNet50, pretrained on ImageNet, that I fine-tuned to sort brain MRI slices into four classes: glioma, meningioma, pituitary tumor and no tumor. Grad-CAM heatmaps show which part of each scan the model used for its answer.
 
-The first model scored 95% on the test set, but it missed a lot of gliomas. When I went through its mistakes, it turned out the model had partly learned to recognise which collection a scan came from, and used that as a stand-in for the diagnosis. After fixing that, it gets 76% of gliomas from an unseen source right, up from 24%.
+The first model scored 97.4% on the held-out test set (the same 1,562 scans used in the results table), but it missed a lot of gliomas. When I went through its mistakes, it turned out the model had partly learned to recognise which collection a scan came from, and used that as a stand-in for the diagnosis. After fixing that, it gets 76% of gliomas from an unseen source right, up from 24%.
 
 ![Pipeline](docs/images/pipeline.svg)
 
